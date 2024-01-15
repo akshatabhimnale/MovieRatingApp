@@ -3,7 +3,7 @@ import Data from "./Data.json";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import StarIcon from "@mui/icons-material/Star";
+//import StarIcon from "@mui/icons-material/Star";
 import {
   Box,
   Button,
