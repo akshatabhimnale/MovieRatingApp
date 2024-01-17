@@ -6,7 +6,7 @@ import {
   gridFilteredSortedRowIdsSelector,
   selectedGridRowsSelector,
 } from "@mui/x-data-grid";
-import { autocompleteClasses } from "@mui/material";
+import { Box, Paper, autocompleteClasses, colors } from "@mui/material";
 
 const getSelectedRowsToExport = ({ apiRef }) => {
   const selectedRowIds = selectedGridRowsSelector(apiRef);
@@ -78,28 +78,30 @@ const admindashboard = () => {
     },
   ];
   return (
-    <>
-      <div style={{ height: 1000, width: "100%" }}>
-        <DataGrid
-          style={{ marginTop: 100 }}
-          rows={rows}
-          columns={columns}
-          /*initialState={{
+    <Box>
+      <Paper elevation={3}>
+        <div style={{ height: 1000, width: "100%" }}>
+          <DataGrid
+            style={{ marginTop: 100 }}
+            rows={rows}
+            columns={columns}
+            /*initialState={{
             pagination: {
               paginationModel: { page: 0, pageSize: 10 },
             },
           }}*/
-          pageSizeOptions={[5, 10]}
-          rowHeight={300}
-          slots={{ toolbar: GridToolbar }}
-          slotProps={{
-            toolbar: {
-              printOptions: { getRowsToExport: getSelectedRowsToExport },
-            },
-          }}
-        />
-      </div>
-    </>
+            pageSizeOptions={[5, 10]}
+            rowHeight={300}
+            slots={{ toolbar: GridToolbar }}
+            slotProps={{
+              toolbar: {
+                printOptions: { getRowsToExport: getSelectedRowsToExport },
+              },
+            }}
+          />
+        </div>
+      </Paper>
+    </Box>
   );
 };
 

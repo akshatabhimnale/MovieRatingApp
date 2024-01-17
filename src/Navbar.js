@@ -11,7 +11,7 @@ const Navbar = () => {
           <Tabs sx={{ marginLeft: "auto" }} textColor="inherit">
             <Tab label="Search" />
             <Tab label="Home" />
-            <Tab label="Login" />
+            <Tab label="Logout" />
           </Tabs>
         </Toolbar>
       </AppBar>
