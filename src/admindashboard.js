@@ -6,7 +6,14 @@ import {
   gridFilteredSortedRowIdsSelector,
   selectedGridRowsSelector,
 } from "@mui/x-data-grid";
-import { Box, Paper, autocompleteClasses, colors } from "@mui/material";
+import {
+  Box,
+  Button,
+  Paper,
+  Stack,
+  autocompleteClasses,
+  colors,
+} from "@mui/material";
 
 const getSelectedRowsToExport = ({ apiRef }) => {
   const selectedRowIds = selectedGridRowsSelector(apiRef);
@@ -79,10 +86,13 @@ const admindashboard = () => {
   ];
   return (
     <Box>
+      <Stack spacing={2} direction="row" style={{ marginTop: 100 }}>
+        <Button variant="contained">Add Movie</Button>
+      </Stack>
       <Paper elevation={3}>
         <div style={{ height: 1000, width: "100%" }}>
           <DataGrid
-            style={{ marginTop: 100 }}
+            style={{ marginTop: 10 }}
             rows={rows}
             columns={columns}
             /*initialState={{

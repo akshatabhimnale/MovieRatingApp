@@ -1,13 +1,14 @@
 import React from "react";
 //import MovieIcon from "@mui/icons-material/Movie";
-import { AppBar, Button, Tab, Tabs, Toolbar, Typography } from "@mui/material";
+import { AppBar, Tab, Tabs, Toolbar, Typography } from "@mui/material";
+
+import { MenuBook, MenuOpen } from "@mui/icons-material";
 const Navbar = () => {
   return (
     <React.Fragment>
       <AppBar sx={{ background: "#063970" }}>
         <Toolbar>
-          <Typography>Movie Rating</Typography>
-
+          <Typography> Movie Rating</Typography>
           <Tabs sx={{ marginLeft: "auto" }} textColor="inherit">
             <Tab label="Search" />
             <Tab label="Home" />
