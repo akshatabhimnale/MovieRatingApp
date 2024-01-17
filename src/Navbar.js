@@ -1,5 +1,6 @@
 import SearchIcon from "@mui/icons-material/Search";
 import React from "react";
+
 //import MovieIcon from "@mui/icons-material/Movie";
 import {
   AppBar,
@@ -66,7 +67,15 @@ const Navbar = () => {
           <Typography> Movie Rating</Typography>
 
           <Tabs sx={{ marginLeft: "auto" }} textColor="inherit">
-            <Tab label="Search" />
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ "aria-label": "search" }}
+              />
+            </Search>
             <Tab label="Home" />
             <Tab label="Logout" />
           </Tabs>
