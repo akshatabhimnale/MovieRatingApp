@@ -1,14 +1,16 @@
 import "./App.css";
-import Admindashboard from "./admindashboard";
-import Movies from "./Movies";
-import Navbar from "./Navbar";
+import Admin from "./Admin";
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./Home";
 function App() {
   return (
-    <>
-      <Navbar />
-      {/*  <Movies />*/}
-      <Admindashboard />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="dashboard" element={<Admin />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

@@ -51,7 +51,7 @@ const columns = [
 ];
 
 //const rows = [{ id: 1, movieName: "Snow", description: "Jon", rating: 35 }];
-const admindashboard = () => {
+const Dashboard = () => {
   const rows = [
     {
       id: 1,
@@ -85,9 +85,11 @@ const admindashboard = () => {
     },
   ];
   return (
-    <Box>
-      <Stack spacing={2} direction="row" style={{ marginTop: 100 }}>
-        <Button variant="contained">Add Movie</Button>
+    <Box sx={{ marginTop: 7 }}>
+      <Stack spacing={2} direction="row">
+        <Button variant="contained" style={{ backgroundColor: "black" }}>
+          Add Movie
+        </Button>
       </Stack>
       <Paper elevation={3}>
         <div style={{ height: 1000, width: "100%" }}>
@@ -115,4 +117,4 @@ const admindashboard = () => {
   );
 };
 
-export default admindashboard;
+export default Dashboard;

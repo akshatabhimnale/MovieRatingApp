@@ -77,7 +77,7 @@ const Navbar = () => {
               />
             </Search>
             <Tab label="Home" />
-            <Tab label="Logout" />
+            <Tab label="Login" />
           </Tabs>
         </Toolbar>
       </AppBar>

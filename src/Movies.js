@@ -32,7 +32,7 @@ const Movies = () => {
             >
               <Card
                 className="card"
-                sx={{ maxWidth: 700, height: 300 }}
+                sx={{ maxWidth: 700, height: 300, borderRadius: 5 }}
                 style={{
                   backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.57), rgba(10, 6, 13, 0.49)), url(${result.img})`,
                   backgroundRepeat: "no-repeat",
