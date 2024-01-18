@@ -21,6 +21,7 @@ import ListItemText from "@mui/material/ListItemText";
 import { useState } from "react";
 
 import Dashboard from "./Dashboard";
+import { Tab } from "@mui/material";
 
 const drawerWidth = 240;
 
@@ -122,6 +123,7 @@ export default function Sidenav() {
           <Typography variant="h6" noWrap component="div">
             Admin Dashboard
           </Typography>
+          <Tab sx={{ marginLeft: "auto" }} label="Logout" />
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
