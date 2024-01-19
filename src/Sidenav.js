@@ -17,11 +17,11 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-
 import { useState } from "react";
-
 import Dashboard from "./Dashboard";
 import { Tab } from "@mui/material";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -92,6 +92,7 @@ const Drawer = styled(MuiDrawer, {
 
 export default function Sidenav() {
   const theme = useTheme();
+  const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const [menudata, setMenudata] = useState("Dashboard");
 
@@ -106,7 +107,7 @@ export default function Sidenav() {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open} sx={{ backgroundColor: "black" }}>
+      <AppBar position="fixed" open={open} sx={{ backgroundColor: "Black" }}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -123,7 +124,12 @@ export default function Sidenav() {
           <Typography variant="h6" noWrap component="div">
             Admin Dashboard
           </Typography>
-          <Tab sx={{ marginLeft: "auto" }} label="Logout" />
+          <Tab
+            sx={{ marginLeft: "auto", display: "inline-block" }}
+            icon={<LogoutIcon fontSize="large" />}
+            label="Logout"
+            onClick={() => navigate("/")}
+          ></Tab>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -169,7 +175,7 @@ export default function Sidenav() {
         <Divider />
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        {menudata == "Dashboard" && <Dashboard />}
+        {menudata === "Dashboard" && <Dashboard />}
       </Box>
     </Box>
   );

@@ -15,6 +15,7 @@ import {
 
 import { MenuBook, MenuOpen } from "@mui/icons-material";
 import { GridMenuIcon } from "@mui/x-data-grid";
+import { useNavigate } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -59,6 +60,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const Navbar = () => {
+  const navigate = useNavigate();
   return (
     <React.Fragment>
       <AppBar sx={{ background: "black" }}>
@@ -77,7 +79,7 @@ const Navbar = () => {
               />
             </Search>
             <Tab label="Home" />
-            <Tab label="Login" />
+            <Tab label="Login" onClick={() => navigate("/login")} />
           </Tabs>
         </Toolbar>
       </AppBar>
