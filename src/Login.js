@@ -22,7 +22,7 @@ export default function Login() {
           },
         }}
       >
-        <Paper elevation={3} style={{ display: "flex", flexDirection: "row" }}>
+        <Paper style={{ display: "flex", flexDirection: "row" }}>
           <div
             style={{
               display: "flex",
@@ -45,6 +45,7 @@ export default function Login() {
                 id="outlined-required"
                 label="Email Id"
                 style={{ width: 350 }}
+                size="small"
               />
               <TextField
                 required
@@ -52,6 +53,7 @@ export default function Login() {
                 label="Password"
                 type="password"
                 style={{ width: 350, marginTop: 10 }}
+                size="small"
               />
               <FormControlLabel control={<Checkbox />} label="Remember me" />
             </FormGroup>

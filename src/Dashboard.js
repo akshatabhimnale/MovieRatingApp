@@ -9,11 +9,21 @@ import {
 import {
   Box,
   Button,
+  FormGroup,
+  Input,
   Paper,
   Stack,
+  Typography,
   autocompleteClasses,
   colors,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import TextField from "@mui/material/TextField";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 const getSelectedRowsToExport = ({ apiRef }) => {
   const selectedRowIds = selectedGridRowsSelector(apiRef);
@@ -52,6 +62,15 @@ const columns = [
 
 //const rows = [{ id: 1, movieName: "Snow", description: "Jon", rating: 35 }];
 const Dashboard = () => {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   const rows = [
     {
       id: 1,
@@ -87,9 +106,55 @@ const Dashboard = () => {
   return (
     <Box sx={{ marginTop: 7 }}>
       <Stack spacing={2} direction="row">
-        <Button variant="contained" style={{ backgroundColor: "black" }}>
+        <Button
+          variant="contained"
+          style={{ backgroundColor: "black" }}
+          onClick={handleClickOpen}
+        >
           Add Movie
         </Button>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          PaperProps={{
+            component: "form",
+            onSubmit: (event) => {
+              event.preventDefault();
+              const formData = new FormData(event.currentTarget);
+              const formJson = Object.fromEntries(formData.entries());
+              const email = formJson.email;
+              console.log(email);
+              handleClose();
+            },
+          }}
+        >
+          <DialogContent sx={{ height: 325, width: 500 }}>
+            <FormGroup style={{ flexDirection: "column" }}>
+              <TextField
+                id="outlined-basic"
+                label="Movie Name"
+                variant="outlined"
+                margin="normal"
+                fullWidth
+              />
+              <TextField
+                id="outlined-basic"
+                label="Movie Details"
+                variant="outlined"
+                fullWidth
+                multiline
+                margin="normal"
+                rows={4}
+              />
+              <Typography marginTop={1}>Movie Poster</Typography>
+              <input type="file" />
+            </FormGroup>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button type="submit">Add MOVIE</Button>
+          </DialogActions>
+        </Dialog>
       </Stack>
       <Paper elevation={3}>
         <div style={{ height: 1000, width: "100%" }}>
