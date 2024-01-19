@@ -4,8 +4,10 @@ import Paper from "@mui/material/Paper";
 import { Button, FormGroup, TextField } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const navigate = useNavigate();
   return (
     <Box
       sx={{ display: "flex", justifyContent: "center", flexDirection: "row" }}
@@ -49,7 +51,7 @@ export default function Login() {
                 id="outlined-required"
                 label="Password"
                 type="password"
-                style={{ width: 350 }}
+                style={{ width: 350, marginTop: 10 }}
               />
               <FormControlLabel control={<Checkbox />} label="Remember me" />
             </FormGroup>
@@ -57,6 +59,7 @@ export default function Login() {
               <Button
                 variant="contained"
                 style={{ backgroundColor: "black", width: 350 }}
+                onClick={() => navigate("/dashboard")}
               >
                 Login
               </Button>
