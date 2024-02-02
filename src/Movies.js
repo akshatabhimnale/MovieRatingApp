@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Movies.css";
-import Data from "./Data.json";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -10,18 +9,41 @@ import {
   Button,
   CardActionArea,
   CardActions,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  FormGroup,
   Rating,
+  Stack,
+  TextField,
 } from "@mui/material";
 import { Container, Grid, Typography } from "@mui/material";
+import AddRating from "./AddRating";
 
 const Movies = () => {
-  const [value, setValue] = React.useState(2);
-  const [hover, setHover] = React.useState(-1);
+  const [data, setData] = React.useState([]);
+
+  useEffect(() => {
+    async function movieList() {
+      const settings = { method: "get" };
+      try {
+        const dataFetched = await fetch(
+          "http://localhost:4000/admin/api/movie-list",
+          settings
+        );
+        setData(await dataFetched.json());
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    movieList();
+  }, []);
+
   return (
     <>
       <Container maxWidth="lg">
         <Grid container spacing={5} style={{ marginTop: "20px" }}>
-          {Data.map((result, index) => (
+          {data.map((result, index) => (
             <Grid
               item
               xs={12}
@@ -34,7 +56,7 @@ const Movies = () => {
                 className="card"
                 sx={{ maxWidth: 700, height: 300, borderRadius: 5 }}
                 style={{
-                  backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.57), rgba(10, 6, 13, 0.49)), url(${result.img})`,
+                  backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.57), rgba(10, 6, 13, 0.49)), url(${result.movie_img})`,
                   backgroundRepeat: "no-repeat",
                   backgroundSize: "cover",
                   padding: "1px",
@@ -46,7 +68,7 @@ const Movies = () => {
                   <CardMedia
                     component="img"
                     height="300"
-                    image={result.img}
+                    image={result.movie_img}
                     alt="green iguana"
                     style={{ borderRadius: "10px" }}
                   />
@@ -57,14 +79,14 @@ const Movies = () => {
                       component="div"
                       style={{ color: "white", fontWeight: "bold" }}
                     >
-                      {result.title}
+                      {result.movie_name}
                     </Typography>
                     <Typography
                       variant="body2"
                       color="text.secondary"
                       style={{ color: "white" }}
                     >
-                      {result.des}
+                      {result.movie_details}
                     </Typography>
                   </CardContent>
                 </CardActionArea>
@@ -76,15 +98,7 @@ const Movies = () => {
                     alignItems: "flex-start",
                   }}
                 >
-                  <Button
-                    disableElevation
-                    variant="contained"
-                    size="medium"
-                    color="primary"
-                    style={{ backgroundColor: "rgb(25,118,210)" }}
-                  >
-                    Rate this Movie
-                  </Button>
+                  <AddRating />
                   <Box
                     sx={{
                       marginTop: 2,
@@ -95,14 +109,9 @@ const Movies = () => {
                   >
                     <Rating
                       name="hover-feedback"
-                      value={value}
+                      value={result.movie_rating}
                       precision={0.5}
-                      onChange={(event, newValue) => {
-                        setValue(newValue);
-                      }}
-                      onChangeActive={(event, newHover) => {
-                        setHover(newHover);
-                      }}
+                      readOnly
                     />
                   </Box>
                 </CardActions>
