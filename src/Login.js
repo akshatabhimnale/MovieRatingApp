@@ -5,13 +5,41 @@ import { Button, FormGroup, TextField } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Login() {
   const navigate = useNavigate();
+  const [formData, setFormData] = React.useState({
+    email: "",
+    password: "",
+  });
+  const handleSubmit = async (event) => {
+    try {
+      const url = "http://localhost:4000/admin/api/login";
+      const response = await fetch(url, {
+        method: "post",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const res = await response.json();
+      if (res.status === true) {
+        navigate("/dashboard");
+      } else {
+        toast.error(res.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Box
       sx={{ display: "flex", justifyContent: "center", flexDirection: "row" }}
     >
+      <ToastContainer />
       <Box
         sx={{
           display: "flex",
@@ -42,26 +70,33 @@ export default function Login() {
               <h3>Login to manage your account</h3>
               <TextField
                 required
-                id="outlined-required"
+                id="email"
                 label="Email Id"
                 style={{ width: 350 }}
                 size="small"
+                onChange={(e) => {
+                  setFormData({ ...formData, email: e.target.value });
+                }}
               />
               <TextField
                 required
-                id="outlined-required"
+                id="password"
                 label="Password"
                 type="password"
                 style={{ width: 350, marginTop: 10 }}
                 size="small"
+                onChange={(e) => {
+                  setFormData({ ...formData, password: e.target.value });
+                }}
               />
               <FormControlLabel control={<Checkbox />} label="Remember me" />
             </FormGroup>
             <div>
               <Button
+                type="submit"
                 variant="contained"
                 style={{ backgroundColor: "black", width: 350 }}
-                onClick={() => navigate("/dashboard")}
+                onClick={handleSubmit}
               >
                 Login
               </Button>

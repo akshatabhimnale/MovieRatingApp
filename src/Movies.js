@@ -98,7 +98,7 @@ const Movies = () => {
                     alignItems: "flex-start",
                   }}
                 >
-                  <AddRating />
+                  <AddRating movieId={result._id} />
                   <Box
                     sx={{
                       marginTop: 2,

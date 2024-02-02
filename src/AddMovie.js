@@ -19,8 +19,6 @@ export default function AddMovie() {
     event.preventDefault();
 
     try {
-      console.log(event);
-
       const response = await fetch(
         "http://localhost:4000/admin/api/add-movie",
         {
@@ -126,13 +124,6 @@ export default function AddMovie() {
           <Button>Add MOVIE</Button>
         </DialogActions>
       </Dialog>
-      <form onSubmit={handleSubmit}>
-        <input type="text" placeholder="Name" />
-
-        <button type="submit">Create</button>
-
-        <div className="message"></div>
-      </form>
     </Stack>
   );
 }

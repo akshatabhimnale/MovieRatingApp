@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import React from "react";
 
-const AddRating = () => {
+const AddRating = (props) => {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState(2);
   const [formData, setFormData] = React.useState({
@@ -22,9 +22,11 @@ const AddRating = () => {
   });
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(formData);
+
     try {
-      const response = await fetch("http://localhost:5000/user/api/", {
+      const url = "http://localhost:4000/user/api/rating/" + props.movieId;
+
+      const response = await fetch(url, {
         method: "post",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -121,7 +123,7 @@ const AddRating = () => {
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
           <Button type="submit" onClick={handleSubmit}>
-            Add MOVIE
+            ADD Rating
           </Button>
         </DialogActions>
       </Dialog>
