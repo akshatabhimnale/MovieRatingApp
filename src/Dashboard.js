@@ -78,7 +78,6 @@ const Dashboard = () => {
     }
     movieList();
   }, []);
-  console.log(data);
 
   return (
     <Box sx={{ marginTop: 7 }}>

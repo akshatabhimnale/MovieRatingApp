@@ -1,14 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useRef } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import { FormGroup, Stack, Typography } from "@mui/material";
 
 export default function AddMovie() {
+  const fileInputRef = useRef(null);
   const [open, setOpen] = React.useState(false);
   const [formData, setFormData] = React.useState({
     movie_name: "",
@@ -17,21 +16,26 @@ export default function AddMovie() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const formDataObj = new FormData();
+    console.log(JSON.stringify(formData));
 
+    formDataObj.append("movie_name", formData.movie_name);
+    formDataObj.append("movie_detail", formData.movie_detail);
+    formDataObj.append("file", fileInputRef.current.files[0]);
+    console.log(formDataObj);
     try {
       const response = await fetch(
         "http://localhost:4000/admin/api/add-movie",
         {
           method: "post",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
+
+          body: formDataObj,
         }
       );
+
       if (response.ok) {
-        // Handle success
         console.log("Form submitted successfully");
       } else {
-        // Handle error
         console.error("Error submitting form");
       }
     } catch (error) {
@@ -39,22 +43,6 @@ export default function AddMovie() {
     }
     setOpen(false);
   };
-  // useEffect(() => {
-  //   async function movieList() {
-  //     const settings = { method: "get" };
-  //     try {
-  //       const dataFetched = await fetch(
-  //         "http://localhost:4000/admin/api/movie-list",
-  //         settings
-  //       );
-  //       setData(await dataFetched.json());
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
-  //   movieList();
-  // }, []);
-  // console.log(data);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -73,56 +61,45 @@ export default function AddMovie() {
       >
         Add Movie
       </Button>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        PaperProps={{
-          component: "form",
-          onSubmit: (event) => {
-            event.preventDefault();
-            const formData = new FormData(event.currentTarget);
-            const formJson = Object.fromEntries(formData.entries());
-
-            handleClose();
-          },
-        }}
-      >
-        <DialogContent sx={{ height: 325, width: 500 }}>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogContent sx={{ height: 374, width: 500 }}>
           <FormGroup style={{ flexDirection: "column" }}>
-            <TextField
-              id="movie_name"
-              name="movie_name"
-              label="Movie Name"
-              variant="outlined"
-              margin="normal"
-              value={formData.movie_name}
-              fullWidth
-              onChange={(e) => {
-                setFormData({ ...formData, movie_name: e.target.value });
-              }}
-            />
-            <TextField
-              id="movie_detail"
-              name="movie_detail"
-              label="Movie Details"
-              variant="outlined"
-              fullWidth
-              multiline
-              margin="normal"
-              rows={4}
-              value={formData.movie_detail}
-              onChange={(e) => {
-                setFormData({ ...formData, movie_detail: e.target.value });
-              }}
-            />
-            <Typography marginTop={1}>Movie Poster</Typography>
-            <input type="file" name="poster" />
+            <form onSubmit={handleSubmit}>
+              <TextField
+                id="movie_name"
+                name="movie_name"
+                label="Movie Name"
+                variant="outlined"
+                margin="normal"
+                value={formData.movie_name}
+                fullWidth
+                onChange={(e) => {
+                  setFormData({ ...formData, movie_name: e.target.value });
+                }}
+              />
+              <TextField
+                id="movie_detail"
+                name="movie_detail"
+                label="Movie Details"
+                variant="outlined"
+                fullWidth
+                multiline
+                margin="normal"
+                rows={4}
+                value={formData.movie_detail}
+                onChange={(e) => {
+                  setFormData({ ...formData, movie_detail: e.target.value });
+                }}
+              />
+              <Typography style={{ marginTop: 4 }}>Movie Poster</Typography>
+              <input type="file" ref={fileInputRef} />
+              <DialogActions>
+                <Button onClick={handleClose}>CANCEL</Button>
+                <Button type="submit">ADD MOVIE</Button>
+              </DialogActions>
+            </form>
           </FormGroup>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button>Add MOVIE</Button>
-        </DialogActions>
       </Dialog>
     </Stack>
   );
