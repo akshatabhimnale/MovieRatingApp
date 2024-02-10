@@ -64,7 +64,7 @@ export default function AddMovie() {
       <Dialog open={open} onClose={handleClose}>
         <DialogContent sx={{ height: 374, width: 500 }}>
           <FormGroup style={{ flexDirection: "column" }}>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} encType="multipart/form-data">
               <TextField
                 id="movie_name"
                 name="movie_name"
@@ -92,7 +92,7 @@ export default function AddMovie() {
                 }}
               />
               <Typography style={{ marginTop: 4 }}>Movie Poster</Typography>
-              <input type="file" ref={fileInputRef} />
+              <input type="file" ref={fileInputRef} name="moviePoster" />
               <DialogActions>
                 <Button onClick={handleClose}>CANCEL</Button>
                 <Button type="submit">ADD MOVIE</Button>
